@@ -36,7 +36,7 @@
     "karma": "^0.13.9",
     "karma-browserify": "^4.3.0",
     "karma-jasmine": "^0.3.6",
-    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-phantomjs-launcher": "^1.0.4",
     "phantomjs": "^1.9.18"
   },
   "dependencies": {
