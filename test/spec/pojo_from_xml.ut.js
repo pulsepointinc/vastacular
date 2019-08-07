@@ -6,6 +6,8 @@ var trimObject = require('../../lib/utils/trim_object');
 var xml = require('fs').readFileSync(require.resolve('../helpers/vast_2.0.xml')).toString();
 var minimalXML = require('fs').readFileSync(require.resolve('../helpers/vast_2.0--minimal.xml')).toString();
 var invalidXML = require('fs').readFileSync(require.resolve('../helpers/vast_2.0--invalid.xml')).toString();
+var emptyXML = require('fs').readFileSync(require.resolve('../helpers/empty_vast.xml')).toString();
+var wrapperXML = require('fs').readFileSync(require.resolve('../helpers/wrapper_of_empty_vast.xml')).toString();
 
 describe('pojoFromXML(xml)', function() {
     var pojo;
@@ -564,4 +566,51 @@ describe('pojoFromXML(xml)', function() {
             });
         });
     });
+
+    describe('if given empty VAST', function() {
+        beforeEach(function() {
+            queryXML = parseXML(emptyXML);
+            pojo = pojoFromXML(emptyXML);
+        });
+
+        it('should be parsed', function() {
+            expect(pojo).toEqual({
+                version: '2.0',
+                ads: []
+            });
+        });
+    });
+
+
+    describe('if given a wrapper VAST', function() {
+        beforeEach(function() {
+            queryXML = parseXML(wrapperXML);
+            pojo = pojoFromXML(wrapperXML);
+        });
+
+        it('should be parsed', function() {
+            expect(pojo).toEqual({
+                version: '2.0',
+                ads: [
+                    { id: 'doubleverify_ad', 
+                        system: { name: 'doubleverify' }, 
+                        errors: [ 'https://vtrk.doubleverify.com/err' ], 
+                        impressions: [
+                            {uri: 'https://vtrk.doubleverify.com/imp'},
+                            {uri: 'https://tps.doubleverify.com/imp'}
+                        ],
+                        creatives: [{
+                            type: 'linear',
+                            trackingEvents: [{event: 'complete', uri: 'https://vtrk.doubleverify.com/cmplt'}],
+                            videoClicks: {clickTrackings: ['https://vtrk.doubleverify.com/ctr'], customClicks: []},
+                            mediaFiles: []
+                        }], 
+                        type: 'wrapper', 
+                        vastAdTagURI: 'https://kolyan.com/empty_vast.xml'
+                    }
+                ]
+            });
+        });
+    });
+
 });

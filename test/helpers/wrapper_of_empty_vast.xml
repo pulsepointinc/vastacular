@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VAST version="2.0">
+    <Ad id="doubleverify_ad">
+        <Wrapper>
+            <AdSystem><![CDATA[doubleverify]]></AdSystem>
+            <VASTAdTagURI><![CDATA[https://kolyan.com/empty_vast.xml]]></VASTAdTagURI>
+            <Error><![CDATA[https://vtrk.doubleverify.com/err]]></Error>
+            <Impression><![CDATA[https://vtrk.doubleverify.com/imp]]></Impression>
+            <Impression><![CDATA[https://tps.doubleverify.com/imp]]></Impression>
+            <Creatives>
+                <Creative>
+                    <Linear>
+                        <TrackingEvents>
+                            <Tracking event="complete"><![CDATA[https://vtrk.doubleverify.com/cmplt]]></Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickTracking><![CDATA[https://vtrk.doubleverify.com/ctr]]></ClickTracking>
+                        </VideoClicks>
+                    </Linear>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="AdVerifications">
+                    <AdVerifications>
+                        <Verification vendor="doubleverify.com-omid">
+                            <JavaScriptResource apiFramework="omid" browserOptional="true"><![CDATA[https://cdn.doubleverify.com/dvtp_src.js]]></JavaScriptResource>
+                            <TrackingEvents>
+                                <Tracking event="verificationNotExecuted"><![CDATA[https://tps.doubleverify.com/visit.jpg?verr]]></Tracking>
+                            </TrackingEvents>
+                            <VerificationParameters><![CDATA[tagtype=video&dvtagver=6.1.src]]></VerificationParameters>
+                        </Verification>
+                    </AdVerifications>
+                </Extension>
+            </Extensions>
+        </Wrapper>
+    </Ad>
+</VAST>
